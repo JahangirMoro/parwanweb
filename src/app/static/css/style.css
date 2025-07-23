@@ -1,0 +1,73 @@
+/* Header Logo & Branding */
+.header-container {
+  padding: 20px;
+  background-color: #006837; /* سبز رنگ */
+  color: white;
+  border-bottom: 2px solid #ccc;
+}
+
+.logo-brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  height: 90px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 5px;
+}
+
+.brand-title {
+  font-size: 38px;
+  font-weight: bold;
+  font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
+  white-space: nowrap;
+}
+
+/* Header Buttons */
+.dropdown-buttons .btn {
+  border: 1px solid white;
+  color: white;
+  background-color: transparent;
+  transition: 0.3s;
+}
+
+.dropdown-buttons .btn:hover {
+  background-color: white;
+  color: #006837;
+}
+
+/* Navbar Menu Item Spacing */
+.navbar-nav .nav-item {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.navbar-nav .nav-link {
+  font-size: 1rem;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .logo-brand-wrapper {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .logo {
+    height: 70px;
+  }
+
+  .brand-title {
+    font-size: 28px;
+  }
+
+  .dropdown-buttons {
+    justify-content: center;
+    margin-top: 10px;
+  }
+}

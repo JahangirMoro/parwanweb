@@ -1,0 +1,33 @@
+**3. edit.html** (Edit Edition)
+
+```html
+{% extends "admin/base.html" %}
+{% block title %}ایڈیشن ترمیم کریں{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h4 class="mb-3">ایڈیشن ترمیم کریں</h4>
+  <form method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label class="form-label">نام</label>
+      <input type="text" name="name" class="form-control" value="{{ edition.name }}" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">تاریخ</label>
+      <input type="date" name="date_" class="form-control" value="{{ edition.date }}" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">موجودہ تصویر</label><br>
+      <img src="/{{ edition.image_url }}" height="100" class="mb-2">
+      <input type="file" name="image" accept="image/*" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">موجودہ PDF</label><br>
+      <a href="/{{ edition.pdf_url }}" target="_blank">PDF فائل دیکھیں</a>
+      <input type="file" name="pdf" accept="application/pdf" class="form-control mt-2">
+    </div>
+    <button type="submit" class="btn btn-primary">اپ ڈیٹ کریں</button>
+    <a href="/admin/editions" class="btn btn-secondary">واپس</a>
+  </form>
+</div>
+{% endblock %}

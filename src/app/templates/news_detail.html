@@ -1,0 +1,83 @@
+{% extends "web_base.html" %}
+
+{% block title %}{{ article.title }} - ڈیلی پروان{% endblock %}
+
+{% block head_extra %}
+  <meta name="description" content="{{ article.summary[:160] | default('ڈیلی پروان کی تازہ خبر پڑھیں', true) }}">
+  <meta name="keywords" content="{{ article.title }}, ڈیلی پروان, اردو خبریں, Urdu News">
+  <meta name="author" content="Daily Parwan">
+  <meta name="description" content="{{ article.summary | default(article.title) | truncate(160, True) }}">
+  <meta name="keywords" content="{{ article.title }}, ڈیلی پروان, Urdu News, {{ article.category.name }}">
+  <meta property="og:title" content="{{ article.title }} - ڈیلی پروان">
+  <meta property="og:description" content="{{ article.summary | default(article.title) | truncate(160, True) }}">
+  <meta property="og:image" content="{{ request.url_for('static', path=article.image_url) if article.image_url else request.url_for('static', path='images/placeholder.jpg') }}">
+  <meta property="og:url" content="{{ request.url }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ article.title }} - ڈیلی پروان">
+  <meta name="twitter:description" content="{{ article.summary | default(article.title) | truncate(160, True) }}">
+  <meta name="twitter:image" content="{{ request.url_for('static', path=article.image_url) if article.image_url else request.url_for('static', path='images/placeholder.jpg') }}">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:title" content="{{ article.title }} - ڈیلی پروان" />
+  <meta property="og:description" content="{{ article.summary[:160] | default('ڈیلی پروان کی تازہ خبر پڑھیں', true) }}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="{{ request.url }}" />
+  <meta property="og:image" content="{{ request.url_root ~ article.image_url if article.image_url else request.url_root ~ 'static/images/placeholder.jpg' }}" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ article.title }} - ڈیلی پروان" />
+  <meta name="twitter:description" content="{{ article.summary[:160] | default('ڈیلی پروان کی تازہ خبر پڑھیں', true) }}" />
+  <meta name="twitter:image" content="{{ request.url_root ~ article.image_url if article.image_url else request.url_root ~ 'static/images/placeholder.jpg' }}" />
+{% endblock %}
+
+{% block content %}
+<div class="container my-4" dir="rtl">
+  <div class="row justify-content-center">
+    <div class="col-lg-9 col-md-10 bg-white shadow-sm rounded p-4"
+         style="font-family: 'Noto Nastaliq Urdu', serif; line-height: 2;">
+
+      <!-- 📰 خبر کا عنوان -->
+      <h1 class="fw-bold text-end mb-2" style="font-size: 2rem;">
+        {{ article.title }}
+      </h1>
+
+      <!-- 🗓️ اشاعت کی تاریخ -->
+      <p class="text-muted text-end mb-3" style="font-size: 0.9rem;">
+        {{ article.created_at.strftime('%d %B %Y') }}
+      </p>
+
+      <!-- 🖼️ تصویر -->
+      <div class="text-center mb-4">
+        {% if article.image_url %}
+          <img src="/{{ article.image_url }}"
+               alt="{{ article.title }}"
+               class="img-fluid rounded w-100"
+               style="max-height: 400px; object-fit: cover;"
+               onerror="this.onerror=null;this.src='/static/images/placeholder.jpg';">
+        {% else %}
+          <img src="/static/images/placeholder.jpg"
+               alt="کوئی تصویر موجود نہیں"
+               class="img-fluid rounded w-100"
+               style="max-height: 400px; object-fit: cover;">
+        {% endif %}
+      </div>
+
+      <!-- 📄 خلاصہ -->
+      {% if article.summary %}
+        <p class="lead text-end text-dark mb-4" style="font-size: 1.2rem;">
+          {{ article.summary }}
+        </p>
+      {% endif %}
+
+      <!-- 📜 مکمل تفصیل -->
+      <div class="article-content text-end text-dark"
+           style="font-size: 1.05rem; white-space: pre-line;"
+           dir="rtl">
+        {{ article.content | safe }}
+      </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

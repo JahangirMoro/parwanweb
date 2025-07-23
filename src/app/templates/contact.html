@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}رابطہ کریں - ڈیلی پروان{% endblock %}
+{% block content %}
+<div class="container mt-5">
+  <h2 class="text-center mb-4">ہم سے رابطہ کریں</h2>
+  
+  {% if success %}
+    <div class="alert alert-success text-center">{{ success }}</div>
+  {% endif %}
+
+  <form method="post" action="/contact">
+    <div class="mb-3">
+      <label class="form-label">نام</label>
+      <input type="text" name="name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">ای میل</label>
+      <input type="email" name="email" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">پیغام</label>
+      <textarea name="message" class="form-control" rows="5" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">بھیجیں</button>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+<!-- src/app/templates/admin/login.html -->
+{% extends "base.html" %}
+
+{% block title %}ایڈمن لاگ ان{% endblock %}
+
+{% block content %}
+<div class="container mt-5" style="max-width: 500px;">
+  <h3 class="mb-4">ایڈمن لاگ ان</h3>
+
+  {% if error %}
+    <div class="alert alert-danger">{{ error }}</div>
+  {% endif %}
+
+  <form method="post">
+    <div class="mb-3">
+      <label class="form-label">یوزرنیم</label>
+      <input type="text" name="username" class="form-control" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">پاسورڈ</label>
+      <input type="password" name="password" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-dark">لاگ ان</button>
+  </form>
+</div>
+{% endblock %}

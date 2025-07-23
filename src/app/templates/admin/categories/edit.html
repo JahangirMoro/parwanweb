@@ -1,0 +1,13 @@
+{% extends "admin/base.html" %}
+{% block content %}
+<h2 class="mb-4">✏️ زمرے میں ترمیم کریں</h2>
+
+<form action="/admin/categories/edit/{{ category.id }}" method="post" class="border p-4 rounded shadow-sm bg-light">
+  <div class="mb-3">
+    <label class="form-label">زمرے کا نام</label>
+    <input type="text" name="name" class="form-control" value="{{ category.name }}" required>
+  </div>
+  <button type="submit" class="btn btn-primary">محفوظ کریں</button>
+  <a href="/admin/categories" class="btn btn-secondary">واپس جائیں</a>
+</form>
+{% endblock %}

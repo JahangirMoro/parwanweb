@@ -1,0 +1,15 @@
+{% extends "Home.html" %}
+
+{% block content %}
+<h2 class="mb-3">{{ article.title }}</h2>
+<h1>fdfa</h1>
+<div class="mb-3 text-muted">
+    زمرہ: {{ article.category.name }} | تاریخ: {{ article.created_at.strftime('%Y-%m-%d') }}
+</div>
+
+<img src="/{{ article.image_url }}" class="img-fluid rounded mb-4" style="max-height: 400px; object-fit: cover;">
+
+<div class="border p-3 rounded bg-light">
+    <p>{{ article.content | safe }}</p>
+</div>
+{% endblock %}

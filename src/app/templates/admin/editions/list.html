@@ -1,0 +1,45 @@
+**1. list.html** (Editions list page)
+
+```html
+{% extends "admin/base.html" %}
+{% block title %}ایڈیشنز - ڈیلی پروان{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h4 class="mb-3">تمام ایڈیشنز</h4>
+  <a href="/admin/editions/create" class="btn btn-success mb-3">نیا ایڈیشن شامل کریں</a>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>نام</th>
+          <th>تاریخ</th>
+          <th>تصویر</th>
+          <th>PDF</th>
+          <th>عمل</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for edition in editions %}
+        <tr>
+          <td>{{ edition.id }}</td>
+          <td>{{ edition.name }}</td>
+          <td>{{ edition.date.strftime('%Y-%m-%d') }}</td>
+          <td><img src="/{{ edition.image_url }}" alt="" height="50"></td>
+          <td><a href="/{{ edition.pdf_url }}" target="_blank">PDF دیکھیں</a></td>
+          <td>
+            <a href="/admin/editions/edit/{{ edition.id }}" class="btn btn-sm btn-primary">ترمیم</a>
+            <a href="/admin/editions/delete/{{ edition.id }}" class="btn btn-sm btn-danger" onclick="return confirm('کیا آپ واقعی حذف کرنا چاہتے ہیں؟')">حذف</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
+```
+
+---

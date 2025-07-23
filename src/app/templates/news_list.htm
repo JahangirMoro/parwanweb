@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}خبریں - ایڈمن پینل{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="text-dark">خبریں</h2>
+    <a href="/admin/news/create" class="btn btn-success">
+        <i class="bi bi-plus-circle"></i> نئی خبر شامل کریں
+    </a>
+</div>
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>شناخت</th>
+            <th>عنوان</th>
+            <th>خلاصہ</th>
+            <th>زمرہ</th>
+            <th>تصویر</th>
+            <th>تاریخ</th>
+            <th>کارروائی</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for article in articles %}
+        <tr>
+            <td>{{ article.id }}</td>
+            <td>{{ article.title }}</td>
+            <td>{{ article.summary[:50] }}...</td>
+            <td>{{ article.category.name }}</td>
+            <td>
+                {% if article.image_url %}
+                    <img src="{{ article.image_url }}" alt="تصویر" width="80">
+                {% else %}
+                    -
+                {% endif %}
+            </td>
+            <td>{{ article.created_at.strftime('%Y-%m-%d') }}</td>
+            <td>
+                <a href="/admin/news/edit/{{ article.id }}" class="btn btn-sm btn-primary">
+                    <i class="bi bi-pencil-square"></i>
+                </a>
+                <form method="post" action="/admin/news/delete/{{ article.id }}" class="d-inline">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('کیا آپ واقعی حذف کرنا چاہتے ہیں؟')">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if not articles %}
+<div class="alert alert-info text-center">
+    فی الحال کوئی خبر موجود نہیں ہے۔
+</div>
+{% endif %}
+{% endblock %}

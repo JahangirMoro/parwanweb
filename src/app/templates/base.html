@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>{% block title %}ایڈمن پینل - ڈیلی پروان{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+  <nav class="navbar navbar-dark bg-dark px-4 mb-4">
+    <span class="navbar-brand">ایڈمن پینل</span>
+    <a href="/admin/logout" class="btn btn-outline-light btn-sm">لاگ آؤٹ</a>
+  </nav>
+
+  <div class="container">
+    {% block content %}{% endblock %}
+  </div>
+
+</body>
+</html>

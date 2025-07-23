@@ -1,0 +1,38 @@
+{% extends "admin/base.html" %}
+{% block content %}
+<div class="container mt-4">
+  <h2>خبر میں ترمیم کریں</h2>
+  <form action="/admin/articles/edit/{{ article.id }}" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label>عنوان</label>
+      <input type="text" name="title" class="form-control" value="{{ article.title }}" required>
+    </div>
+    <div class="mb-3">
+      <label>خلاصہ</label>
+      <textarea name="summary" class="form-control" rows="3">{{ article.summary }}</textarea>
+    </div>
+    <div class="mb-3">
+      <label>تفصیل</label>
+      <textarea name="content" class="form-control" rows="6">{{ article.content }}</textarea>
+    </div>
+    <div class="mb-3">
+      <label>زمرہ</label>
+      <select name="category_id" class="form-select">
+        {% for category in categories %}
+        <option value="{{ category.id }}" {% if category.id == article.category_id %}selected{% endif %}>
+          {{ category.name }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="mb-3">
+      <label>تصویر (اگر تبدیل کرنا ہو)</label>
+      <input type="file" name="image" class="form-control">
+      {% if article.image_url %}
+        <img src="/{{ article.image_url }}" alt="تصویر" width="100" class="mt-2">
+      {% endif %}
+    </div>
+    <button type="submit" class="btn btn-primary">محفوظ کریں</button>
+  </form>
+</div>
+{% endblock %}

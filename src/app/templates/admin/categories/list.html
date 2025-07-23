@@ -1,0 +1,29 @@
+{% extends "admin/base.html" %}
+{% block content %}
+<h2 class="mb-4">📂 زمروں کی فہرست</h2>
+
+<a href="/admin/categories/create" class="btn btn-success mb-3">➕ نیا زمرہ شامل کریں</a>
+
+<table class="table table-bordered table-hover table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>#</th>
+      <th>نام</th>
+      <th>عمل</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for cat in categories %}
+    <tr>
+      <td>{{ cat.id }}</td>
+      <td>{{ cat.name }}</td>
+      <td>
+        <a href="/admin/categories/edit/{{ cat.id }}" class="btn btn-sm btn-warning">✏️ ترمیم</a>
+        <a href="/admin/categories/delete/{{ cat.id }}" class="btn btn-sm btn-danger"
+           onclick="return confirm('کیا آپ واقعی حذف کرنا چاہتے ہیں؟')">🗑️ حذف</a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

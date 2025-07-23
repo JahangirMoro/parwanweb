@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    
+    <!-- Sidebar -->
+    <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar py-4 border-end">
+      <div class="position-sticky">
+        <ul class="nav flex-column text-end pe-3">
+          <li class="nav-item mb-2">
+            <a class="nav-link {% if request.url.path == '/admin/' %}fw-bold{% endif %}" href="/admin/">
+              🏠 ڈیش بورڈ
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a class="nav-link {% if '/admin/articles' in request.url.path %}fw-bold{% endif %}" href="/admin/articles">
+              📰 خبریں
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a class="nav-link {% if '/admin/categories' in request.url.path %}fw-bold{% endif %}" href="/admin/categories">
+              📂 زمرے
+            </a>
+          </li>
+          <li class="nav-item mb-2">
+            <a class="nav-link {% if '/admin/editions' in request.url.path %}fw-bold{% endif %}" href="/admin/editions">
+              📄 ای پیپر
+            </a>
+          </li>
+          <li class="nav-item mt-3">
+            <a class="nav-link text-danger" href="/admin/logout">🚪 لاگ آؤٹ</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+      {% block dashboard_content %}
+      {% endblock %}
+    </main>
+
+  </div>
+</div>
+{% endblock %}

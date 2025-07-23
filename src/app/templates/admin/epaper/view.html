@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}ای پیپر - {{ edition.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+  <h2 class="mb-4">آج کا ایڈیشن - {{ edition.name }}</h2>
+
+  <img src="/{{ edition.image_url }}" alt="ای پیپر تصویر" class="img-fluid rounded shadow" style="max-width: 100%; height: auto;">
+
+  <div class="mt-4">
+    <a href="/{{ edition.image_url }}" download class="btn btn-success">
+      <i class="bi bi-download"></i> تصویر ڈاؤن لوڈ کریں
+    </a>
+  </div>
+</div>
+{% endblock %}

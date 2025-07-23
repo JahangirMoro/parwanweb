@@ -1,0 +1,41 @@
+{% extends "web_base.html" %}
+{% block title %}تلاش کے نتائج - ڈیلی پروان{% endblock %}
+{% block content %}
+<div class="container mt-4">
+  <h3 class="mb-4 border-bottom pb-2">
+    تلاش کے نتائج: "{{ query }}"
+  </h3>
+  
+  {% if results %}
+    {% for article in results %}
+      <div class="mb-4 pb-3 border-bottom">
+        <h5>
+          <a href="/news/{{ article.id }}" class="text-decoration-none text-dark">
+            {{ article.title | safe }}
+          </a>
+        </h5>
+        <p class="text-muted" style="font-size: 14px;">
+          زمرہ: {{ article.category.name }} | {{ article.created_at.strftime('%d %B %Y') }}
+        </p>
+        <p>{{ article.summary[:200] | safe }}...</p>
+      </div>
+    {% endfor %}
+
+    <!-- Pagination -->
+    <div class="text-center mt-4">
+      {% if page > 1 %}
+        <a class="btn btn-outline-secondary me-2" href="/search?q={{ query }}&page={{ page - 1 }}">پچھلا صفحہ</a>
+      {% endif %}
+      {% if page < total_pages %}
+        <a class="btn btn-outline-secondary" href="/search?q={{ query }}&page={{ page + 1 }}">اگلا صفحہ</a>
+      {% endif %}
+      <p class="mt-2">صفحہ {{ page }} / {{ total_pages }} — کل {{ total_results }} نتائج</p>
+    </div>
+
+  {% else %}
+    <div class="alert alert-warning text-center" role="alert">
+      "{{ query }}" کے لیے کوئی نتیجہ نہیں ملا۔ دوبارہ کوشش کریں۔
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

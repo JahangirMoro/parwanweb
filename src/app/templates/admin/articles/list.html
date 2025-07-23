@@ -1,0 +1,38 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<h2 class="mb-4">🗞️ آرٹیکلز کی فہرست</h2>
+
+<a href="/admin/articles/create" class="btn btn-success mb-3">➕ نیا آرٹیکل شامل کریں</a>
+
+<table class="table table-bordered table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>عنوان</th>
+            <th>زمرہ</th>
+            <th>تاریخ</th>
+            <th>تصویر</th>
+            <th>عمل</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for article in articles %}
+        <tr>
+            <td>{{ article.id }}</td>
+            <td>{{ article.title }}</td>
+            <td>{{ article.category.name }}</td>
+            <td>{{ article.created_at.strftime('%Y-%m-%d') }}</td>
+            <td>
+                <img src="/{{ article.image_url }}" width="100" height="60" style="object-fit: cover;">
+            </td>
+            <td>
+                <a href="/admin/articles/edit/{{ article.id }}" class="btn btn-sm btn-warning">✏️ ترمیم</a>
+                <a href="/admin/articles/delete/{{ article.id }}" class="btn btn-sm btn-danger"
+                   onclick="return confirm('کیا آپ واقعی حذف کرنا چاہتے ہیں؟')">🗑️ حذف</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

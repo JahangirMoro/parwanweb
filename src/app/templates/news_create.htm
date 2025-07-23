@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}نئی خبر شامل کریں{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4 text-center text-primary">📰 نئی خبر شامل کریں</h2>
+
+    <form action="/admin/news/create" method="post" enctype="multipart/form-data" class="shadow p-4 bg-white rounded">
+
+        <div class="mb-3">
+            <label for="title" class="form-label">عنوان</label>
+            <input type="text" class="form-control" id="title" name="title" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="summary" class="form-label">خلاصہ</label>
+            <textarea class="form-control" id="summary" name="summary" rows="3" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="content" class="form-label">مکمل خبر</label>
+            <textarea class="form-control" id="content" name="content" rows="6" required></textarea>
+        </div>
+
+        <div class="mb-3">
+            <label for="category_id" class="form-label">زمرہ منتخب کریں</label>
+            <select class="form-select" id="category_id" name="category_id" required>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">تصویر اپلوڈ کریں</label>
+            <input class="form-control" type="file" id="image" name="image" accept="image/*" required>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100">محفوظ کریں</button>
+    </form>
+</div>
+{% endblock %}

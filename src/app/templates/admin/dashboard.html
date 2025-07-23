@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block title %}ایڈمن ڈیش بورڈ - ڈیلی پروان{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    direction: rtl;
+    text-align: right;
+  }
+  .sidebar {
+    min-height: 100vh;
+    background-color: #343a40;
+    color: white;
+    padding-top: 1rem;
+  }
+  .sidebar a {
+    color: white;
+    display: block;
+    padding: 12px 20px;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+  .sidebar a:hover {
+    background-color: #495057;
+    border-right: 4px solid #ffc107;
+  }
+  .card h5 {
+    font-size: 1.1rem;
+  }
+  .card .display-6 {
+    font-size: 2rem;
+    font-weight: bold;
+  }
+</style>
+
+<div class="container-fluid">
+  <div class="row">
+    
+    <!-- Sidebar -->
+    <nav class="col-lg-2 col-md-3 sidebar">
+      <h5 class="text-center mb-4">🛠 ایڈمن مینو</h5>
+      <a href="/admin/articles">📰 خبریں</a>
+      <a href="/admin/categories">📂 زمرے</a>
+      <a href="/admin/editions">🗞 ایڈیشن</a>
+      <a href="/admin/logout">🚪 لاگ آؤٹ</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="col-lg-10 col-md-9 p-4">
+      <h2 class="mb-4 text-center">ایڈمن ڈیش بورڈ</h2>
+
+      <div class="row text-center">
+        <div class="col-sm-6 col-lg-4 mb-4">
+          <div class="card bg-primary text-white shadow rounded">
+            <div class="card-body">
+              <h5>کل خبریں</h5>
+              <p class="display-6">{{ total_articles }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4 mb-4">
+          <div class="card bg-success text-white shadow rounded">
+            <div class="card-body">
+              <h5>کل زمرے</h5>
+              <p class="display-6">{{ total_categories }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-4 mb-4">
+          <div class="card bg-warning text-dark shadow rounded">
+            <div class="card-body">
+              <h5>کل ایڈیشن</h5>
+              <p class="display-6">{{ total_editions }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Articles -->
+      <h4 class="mt-5">🆕 تازہ ترین خبریں</h4>
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered mt-3 text-end">
+          <thead class="table-dark">
+            <tr>
+              <th>عنوان</th>
+              <th>زمرہ</th>
+              <th>تاریخ</th>
+              <th>عمل</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for article in recent_articles %}
+            <tr>
+              <td>{{ article.title }}</td>
+              <td>{{ article.category.name if article.category else " -" }}</td>
+              <td>{{ article.created_at.strftime("%Y-%m-%d") }}</td>
+              <td>
+                <a href="/admin/articles/edit/{{ article.id }}" class="btn btn-sm btn-outline-primary">✏️ ترمیم</a>
+                <a href="/admin/articles/delete/{{ article.id }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('کیا آپ واقعی حذف کرنا چاہتے ہیں؟')">🗑 حذف</a>
+              </td>
+            </tr>
+            {% else %}
+            <tr>
+              <td colspan="4" class="text-center">کوئی خبر دستیاب نہیں۔</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-center mt-4">
+        <a href="/admin/articles/create" class="btn btn-success">➕ نئی خبر شامل کریں</a>
+      </div>
+    </main>
+  </div>
+</div>
+{% endblock %}

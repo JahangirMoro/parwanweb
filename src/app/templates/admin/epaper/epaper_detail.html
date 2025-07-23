@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}{{ edition.name }} - ای پیپر{% endblock %}
+
+{% block content %}
+<div class="container mt-5 text-center">
+  <h2 class="mb-4">{{ edition.name }} - {{ edition.date }}</h2>
+  
+  <div class="mb-4">
+    <img src="/{{ edition.image_url }}" alt="ای پیپر تصویر" class="img-fluid rounded border" style="max-height: 600px;">
+  </div>
+
+  <div>
+    <a href="/{{ edition.pdf_url }}" target="_blank" class="btn btn-primary">
+      مکمل ای پیپر PDF دیکھیں یا ڈاؤن لوڈ کریں
+    </a>
+  </div>
+</div>
+{% endblock %}
