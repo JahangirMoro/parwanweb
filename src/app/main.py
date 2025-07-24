@@ -71,6 +71,7 @@ from fastapi.staticfiles import StaticFiles
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 #app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
+
 # 👇 Adjust this path because you're running from inside `src`
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 UPLOADS_DIR = os.path.join(BASE_DIR, "uploads")
@@ -81,4 +82,9 @@ app.mount("/uploads", StaticFiles(directory=UPLOADS_DIR), name="uploads")
 # -------------------------------
 def main():
     import uvicorn
-    uvicorn.run("app.main:app", host="127.0.0.1", port=8000, reload=True)
+    #uvicorn.run("app.main:app", host="127.0.0.1", port=8000, reload=True)
+
+
+    port = int(os.environ.get("PORT", 8000))  # Render will provide PORT env variable
+
+    uvicorn.run("app.main:app", host="0.0.0.0", port=port)
