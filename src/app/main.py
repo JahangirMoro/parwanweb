@@ -59,13 +59,23 @@ app.include_router(archive_router)  # Date-wise archive
 app.include_router(epaper_web.router)  # 📄 E-paper routes (like /epaper/1/today)
 app.include_router(public.router)  # Misc public pages
 app.include_router(frontend.router)  # Any extra frontend routes
+import os
+from fastapi.staticfiles import StaticFiles
 
 # -------------------------------
 # 📂 Static & Upload Files Mount
 # -------------------------------
-app.mount("/static", StaticFiles(directory="src/app/static"), name="static")
-app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+#app.mount("/static", StaticFiles(directory="src/app/static"), name="static")
+#app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
+#app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+
+# 👇 Adjust this path because you're running from inside `src`
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+UPLOADS_DIR = os.path.join(BASE_DIR, "uploads")
+
+app.mount("/uploads", StaticFiles(directory=UPLOADS_DIR), name="uploads")
 # -------------------------------
 # 🏁 Uvicorn run (only when run via `uv run parwanmain`)
 # -------------------------------
