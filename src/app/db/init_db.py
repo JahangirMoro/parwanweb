@@ -1,6 +1,8 @@
 # src/app/db/init_db.py
 
 from app.db.database import engine, Base
+from app.models import category, news, contact, edition, topbar, admin_user,edition 
+# Importing models to ensure they are registered with SQLAlchemy
 from app.models import news
 #from app.models import user
 from app.models import category
