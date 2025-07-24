@@ -2,9 +2,9 @@
 
 from app.db.database import engine, Base
 from app.models import news
-from app.models import user
+#from app.models import user
 from app.models import category
-from app.models import epaper
+#from app.models import epaper
 from app.models import contact
 from app.models import edition
 from app.models import topbar
