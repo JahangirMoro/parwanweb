@@ -4,3 +4,7 @@ from .category import Category
 from .edition import Edition
 from .contact import ContactInfo
 from .topbar import TopBar
+from .epaper import Epaper
+from .user import User
+from .admin_user import AdminUser
+
