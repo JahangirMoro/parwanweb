@@ -10,7 +10,7 @@ from app.models.category import Category
 from app.models.edition import Edition
 
 router = APIRouter()
-templates = Jinja2Templates(directory="src/app/templates")
+templates = Jinja2Templates(directory="app/templates")
 
 @router.get("/", response_class=HTMLResponse)
 def homepage(
