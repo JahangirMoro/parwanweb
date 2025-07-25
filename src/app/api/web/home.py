@@ -15,6 +15,7 @@ templates = Jinja2Templates(directory="src/app/templates")
 @router.get("/", response_class=HTMLResponse)
 def homepage(
     request: Request,
+    
     db: Session = Depends(get_db),
     page: int = Query(1, ge=1)
 ):
