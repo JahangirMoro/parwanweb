@@ -68,8 +68,13 @@ from fastapi.staticfiles import StaticFiles
 #app.mount("/static", StaticFiles(directory="src/app/static"), name="static")
 #app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
-app.mount("/static", StaticFiles(directory="app/static"), name="static")
+#app.mount("/static", StaticFiles(directory="app/static"), name="static")
+
 #app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+#from fastapi.staticfiles import StaticFiles
+
+app.mount("/static", StaticFiles(directory="src/app/static"), name="static")
+
 
 
 # 👇 Adjust this path because you're running from inside `src`
