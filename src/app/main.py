@@ -1,6 +1,7 @@
 import os
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
 
 # -------------------------------
 # 🧩 Backend APIs (CRUD etc.)
@@ -40,8 +41,9 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))         # src/app
 BASE_DIR = os.path.dirname(CURRENT_DIR)                          # src
 STATIC_DIR = os.path.join(CURRENT_DIR, "static")                 # src/app/static
 UPLOADS_DIR = os.path.join(BASE_DIR, "uploads")                  # src/uploads
+TEMPLATES_DIR = os.path.join(BASE_DIR, "app", "templates")       # src/app/templates
 
-# ✅ Mount static and uploads (absolute paths)
+# ✅ Mount static and uploads
 if os.path.isdir(STATIC_DIR):
     app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 else:
@@ -52,11 +54,15 @@ if os.path.isdir(UPLOADS_DIR):
 else:
     print(f"⚠️ Warning: Uploads directory not found at {UPLOADS_DIR}")
 
+# ✅ Inject global Jinja2 templates into app.state
+if os.path.isdir(TEMPLATES_DIR):
+    app.state.templates = Jinja2Templates(directory=TEMPLATES_DIR)
+else:
+    print(f"❌ Error: Templates directory not found at {TEMPLATES_DIR}")
+
 # -------------------------------
 # 🔗 Include All Routers
 # -------------------------------
-
-# ✨ Admin & Backend APIs
 app.include_router(edition_router)
 app.include_router(categories.router)
 app.include_router(admin.router)
@@ -87,7 +93,6 @@ def main():
     import uvicorn
     port = int(os.environ.get("PORT", 8000))  # For Render
     uvicorn.run("app.main:app", host="0.0.0.0", port=port)
-
 
 if __name__ == "__main__":
     main()
