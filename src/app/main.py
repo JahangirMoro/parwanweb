@@ -51,7 +51,9 @@ app.include_router(archive_router)
 app.include_router(epaper_web.router)
 
 # 📂 Static file mounts
-app.mount("/static", StaticFiles(directory="src/app/static"), name="static")
+
+app.mount("/static", StaticFiles(directory="app/static"), name="static")
+
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 # ✅ Only for local development (Render will not use this)
