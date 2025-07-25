@@ -1,26 +1,19 @@
-import os
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from fastapi.templating import Jinja2Templates
 
-# -------------------------------
 # 🧩 Backend APIs (CRUD etc.)
-# -------------------------------
 from app.api import news
 from app.api import image_upload
 from app.api import category
 
-# -------------------------------
 # 🧩 Admin side API routes
-# -------------------------------
 from app.api.routes import admin
+from app.api.routes import public
 from app.api.routes import frontend
 from app.api.routes import categories
-from app.api.routes.editions import router as edition_router
+from app.api.routes.editions import router  as edition_router
 
-# -------------------------------
-# 🧩 Web (Jinja2) - User & Admin
-# -------------------------------
+# 🧩 Web side (Jinja2 templates rendering) - User & Admin interface
 from app.api.web import home
 from app.api.web import category as web_category
 from app.api.web import news_detail
@@ -30,63 +23,52 @@ from app.api.web import contact
 from app.api.web.archive import router as archive_router
 from app.api.web import admin_dashboard
 from app.api.web import admin_auth
-from app.api.web import epaper as epaper_web
+from app.api.web import epaper as epaper_web  # 📄 E-paper viewing route
 
 # ✅ Create FastAPI app
 app = FastAPI()
 
-# ✅ Absolute directories
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))         # src/app
-BASE_DIR = os.path.dirname(CURRENT_DIR)                          # src
-STATIC_DIR = os.path.join(CURRENT_DIR, "static")                 # src/app/static
-UPLOADS_DIR = os.path.join(BASE_DIR, "uploads")                  # src/uploads
-TEMPLATES_DIR = os.path.join(CURRENT_DIR, "templates")           # ✅ src/app/templates
+# 🔗 Include all routers below
 
-# ✅ Static Files
-if os.path.isdir(STATIC_DIR):
-    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
-else:
-    print(f"⚠️ Static dir not found: {STATIC_DIR}")
+# -------------------------------
+# ✨ Admin Panel & Backend APIs
+# -------------------------------
+app.include_router(edition_router)  # Editions CRUD routes
+app.include_router(categories.router)  # Categories CRUD
+app.include_router(admin.router)  # Admin panel main
+app.include_router(image_upload.router, tags=["Upload"])  # Image uploads
+app.include_router(news.router, prefix="/news", tags=["News"])  # News API
+app.include_router(category.router, prefix="/categories", tags=["Categories"])  # Category API
 
-if os.path.isdir(UPLOADS_DIR):
-    app.mount("/uploads", StaticFiles(directory=UPLOADS_DIR), name="uploads")
-else:
-    print(f"⚠️ Uploads dir not found: {UPLOADS_DIR}")
+# -------------------------------
+# 🔐 Admin Authentication
+# -------------------------------
+app.include_router(admin_auth.router)  # Admin login/logout
+app.include_router(admin_dashboard.router)  # Admin dashboard
 
-# ✅ Inject global Jinja2 templates
-if os.path.isdir(TEMPLATES_DIR):
-    app.state.templates = Jinja2Templates(directory=TEMPLATES_DIR)
-else:
-    print(f"❌ Templates dir not found: {TEMPLATES_DIR}")
+# -------------------------------
+# 🌐 Website Frontend (Jinja2)
+# -------------------------------
+app.include_router(home.router)  # Homepage
+app.include_router(web_category.router)  # News by category
+app.include_router(news_detail.router)  # Single news article
+app.include_router(web_news.router)  # News pages
+app.include_router(search.router)  # Search feature
+app.include_router(contact.router)  # Contact us page
+app.include_router(archive_router)  # Date-wise archive
+app.include_router(epaper_web.router)  # 📄 E-paper routes (like /epaper/1/today)
+app.include_router(public.router)  # Misc public pages
+app.include_router(frontend.router)  # Any extra frontend routes
 
-# ✅ Routers
-app.include_router(edition_router)
-app.include_router(categories.router)
-app.include_router(admin.router)
-app.include_router(image_upload.router, tags=["Upload"])
-app.include_router(news.router, prefix="/news", tags=["News"])
-app.include_router(category.router, prefix="/categories", tags=["Categories"])
+# -------------------------------
+# 📂 Static & Upload Files Mount
+# -------------------------------
+app.mount("/static", StaticFiles(directory="src/app/static"), name="static")
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
-# Admin
-app.include_router(admin_auth.router)
-app.include_router(admin_dashboard.router)
-
-# Web
-app.include_router(home.router)
-app.include_router(web_category.router)
-app.include_router(news_detail.router)
-app.include_router(web_news.router)
-app.include_router(search.router)
-app.include_router(contact.router)
-app.include_router(archive_router)
-app.include_router(epaper_web.router)
-app.include_router(frontend.router)
-
-# ✅ Uvicorn Entrypoint (for Render)
+# -------------------------------
+# 🏁 Uvicorn run (only when run via `uv run parwanmain`)
+# -------------------------------
 def main():
     import uvicorn
-    port = int(os.environ.get("PORT", 10000))  # Render uses this port
-    uvicorn.run("app.main:app", host="0.0.0.0", port=port)
-
-if __name__ == "__main__":
-    main()
+    uvicorn.run("app.main:app", host="127.0.0.1", port=8000, reload=True)
