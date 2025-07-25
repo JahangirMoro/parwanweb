@@ -14,7 +14,6 @@ from app.api import category
 # 🧩 Admin side API routes
 # -------------------------------
 from app.api.routes import admin
-from app.api.routes import public
 from app.api.routes import frontend
 from app.api.routes import categories
 from app.api.routes.editions import router as edition_router
@@ -36,33 +35,31 @@ from app.api.web import epaper as epaper_web
 # ✅ Create FastAPI app
 app = FastAPI()
 
-# ✅ BASE_DIR for absolute paths
+# ✅ Absolute directories
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))         # src/app
 BASE_DIR = os.path.dirname(CURRENT_DIR)                          # src
 STATIC_DIR = os.path.join(CURRENT_DIR, "static")                 # src/app/static
 UPLOADS_DIR = os.path.join(BASE_DIR, "uploads")                  # src/uploads
-TEMPLATES_DIR = os.path.join(BASE_DIR, "app", "templates")       # src/app/templates
+TEMPLATES_DIR = os.path.join(CURRENT_DIR, "templates")           # ✅ src/app/templates
 
-# ✅ Mount static and uploads
+# ✅ Static Files
 if os.path.isdir(STATIC_DIR):
     app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 else:
-    print(f"⚠️ Warning: Static directory not found at {STATIC_DIR}")
+    print(f"⚠️ Static dir not found: {STATIC_DIR}")
 
 if os.path.isdir(UPLOADS_DIR):
     app.mount("/uploads", StaticFiles(directory=UPLOADS_DIR), name="uploads")
 else:
-    print(f"⚠️ Warning: Uploads directory not found at {UPLOADS_DIR}")
+    print(f"⚠️ Uploads dir not found: {UPLOADS_DIR}")
 
-# ✅ Inject global Jinja2 templates into app.state
+# ✅ Inject global Jinja2 templates
 if os.path.isdir(TEMPLATES_DIR):
     app.state.templates = Jinja2Templates(directory=TEMPLATES_DIR)
 else:
-    print(f"❌ Error: Templates directory not found at {TEMPLATES_DIR}")
+    print(f"❌ Templates dir not found: {TEMPLATES_DIR}")
 
-# -------------------------------
-# 🔗 Include All Routers
-# -------------------------------
+# ✅ Routers
 app.include_router(edition_router)
 app.include_router(categories.router)
 app.include_router(admin.router)
@@ -70,11 +67,11 @@ app.include_router(image_upload.router, tags=["Upload"])
 app.include_router(news.router, prefix="/news", tags=["News"])
 app.include_router(category.router, prefix="/categories", tags=["Categories"])
 
-# 🔐 Admin Auth
+# Admin
 app.include_router(admin_auth.router)
 app.include_router(admin_dashboard.router)
 
-# 🌐 Website (User Interface)
+# Web
 app.include_router(home.router)
 app.include_router(web_category.router)
 app.include_router(news_detail.router)
@@ -83,15 +80,12 @@ app.include_router(search.router)
 app.include_router(contact.router)
 app.include_router(archive_router)
 app.include_router(epaper_web.router)
-app.include_router(public.router)
 app.include_router(frontend.router)
 
-# -------------------------------
-# 🏁 Run with Uvicorn if entrypoint
-# -------------------------------
+# ✅ Uvicorn Entrypoint (for Render)
 def main():
     import uvicorn
-    port = int(os.environ.get("PORT", 8000))  # For Render
+    port = int(os.environ.get("PORT", 10000))  # Render uses this port
     uvicorn.run("app.main:app", host="0.0.0.0", port=port)
 
 if __name__ == "__main__":
