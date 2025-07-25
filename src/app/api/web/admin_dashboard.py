@@ -3,7 +3,7 @@ from fastapi.templating import Jinja2Templates
 from starlette.responses import HTMLResponse
 
 router = APIRouter()
-templates = Jinja2Templates(directory="src/app/templates")
+templates = Jinja2Templates(directory="app/templates")
 
 @router.get("/admin/dashboard", response_class=HTMLResponse)
 def admin_dashboard(request: Request):

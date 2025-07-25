@@ -6,7 +6,7 @@ from app.models.news import NewsArticle
 from app.models.category import Category
 
 router = APIRouter()
-templates = Jinja2Templates(directory="src/app/templates")
+templates = Jinja2Templates(directory="app/templates")
 #for categories only click on category name and page will be loaded with all articles of that category
 #this is for web side rendering of category page
 @router.get("/category/{category_id}")

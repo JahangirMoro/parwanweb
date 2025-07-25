@@ -7,7 +7,7 @@ from app.models.edition import Edition
 from datetime import date
 
 router = APIRouter()
-templates = Jinja2Templates(directory="src/app/templates")
+templates = Jinja2Templates(directory="app/templates")
 
 # ✅ User-facing route: PDF redirect
 @router.get("/epaper/{edition_id}/today", tags=["Epaper Redirect"])

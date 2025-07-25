@@ -8,7 +8,7 @@ from app.db.session import get_db
 from app.models.contact import ContactInfo  # ✅ correct import
 
 router = APIRouter()
-templates = Jinja2Templates(directory="src/app/templates")
+templates = Jinja2Templates(directory="app/templates")
 
 @router.get("/contact")
 def contact_page(request: Request):

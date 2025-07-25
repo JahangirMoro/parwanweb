@@ -7,7 +7,7 @@ from fastapi.responses import HTMLResponse
 #for rendring html for news details page
 from app.models.category import Category  # ✅ IMPORT required
 router = APIRouter()
-templates = Jinja2Templates(directory="src/app/templates")
+templates = Jinja2Templates(directory="app/templates")
 
 @router.get("/news/{article_id}", response_class=HTMLResponse)
 def news_detail(article_id: int, request: Request, db: Session = Depends(get_db)):
