@@ -7,7 +7,7 @@ from app.models.news import NewsArticle
 from app.models.category import Category
 
 router = APIRouter()
-templates = Jinja2Templates(directory="src/app/templates")
+templates = Jinja2Templates(directory="app/templates")
 
 @router.get("/news/{news_id}")
 def news_detail(news_id: int, request: Request, db: Session = Depends(get_db)):

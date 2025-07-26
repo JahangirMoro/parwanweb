@@ -14,7 +14,7 @@ from app.models import NewsArticle
 
 router = APIRouter()
 
-templates = Jinja2Templates(directory="src/app/templates")
+templates = Jinja2Templates(directory="app/templates")
 
 
 # ✅ Create article with image upload

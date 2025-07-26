@@ -10,7 +10,7 @@ from app.models.edition import Edition
 from app.models.epaper import EpaperFile
 
 router = APIRouter()
-templates = Jinja2Templates(directory="src/app/templates")
+templates = Jinja2Templates(directory="app/templates")
 EPAPER_DIR = "uploads/epapers"
 os.makedirs(EPAPER_DIR, exist_ok=True)
 

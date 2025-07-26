@@ -8,7 +8,7 @@ from sqlalchemy import or_
 from math import ceil
 
 router = APIRouter()
-templates = Jinja2Templates(directory="src/app/templates")
+templates = Jinja2Templates(directory="app/templates")
 
 @router.get("/search")
 def search_articles(request: Request, q: str = "", page: int = 1, db: Session = Depends(get_db)):

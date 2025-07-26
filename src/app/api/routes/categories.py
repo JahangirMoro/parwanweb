@@ -8,7 +8,7 @@ from app.models import Category
 from starlette.status import HTTP_302_FOUND
 
 router = APIRouter()
-templates = Jinja2Templates(directory="src/app/templates")
+templates = Jinja2Templates(directory="app/templates")
 
 
 # ======================

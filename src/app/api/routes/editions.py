@@ -9,7 +9,7 @@ from app.db.database import get_db
 from app.models.edition import Edition
 
 router = APIRouter()
-templates = Jinja2Templates(directory="src/app/templates")
+templates = Jinja2Templates(directory="app/templates")
 
 UPLOAD_IMAGE_DIR = "uploads/editions/images"
 UPLOAD_PDF_DIR = "uploads/editions/pdfs"

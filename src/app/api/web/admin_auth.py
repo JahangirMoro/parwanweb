@@ -8,7 +8,7 @@ from app.db.session import get_db
 from app.models.admin_user import AdminUser
 
 router = APIRouter()
-templates = Jinja2Templates(directory="src/app/templates")
+templates = Jinja2Templates(directory="app/templates")
 
 @router.get("/admin/login", response_class=HTMLResponse)
 def login_form(request: Request):
