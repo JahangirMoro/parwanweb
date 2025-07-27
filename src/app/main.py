@@ -1,6 +1,25 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from pathlib import Path
+# ✅ Import routes
+from app.api import news
+from app.api import image_upload
+from app.api import category
+
+from app.api.routes import admin
+from app.api.routes import categories
+from app.api.routes.editions import router as edition_router
+
+from app.api.web import home
+from app.api.web import category as web_category
+from app.api.web import news_detail
+from app.api.web import news as web_news
+from app.api.web import search
+from app.api.web import contact
+from app.api.web.archive import router as archive_router
+from app.api.web import admin_dashboard
+from app.api.web import admin_auth
+from app.api.web import epaper as epaper_web
 
 # ✅ Base directory is: src/app/
 BASE_DIR = Path(__file__).resolve().parent
@@ -24,25 +43,6 @@ app = FastAPI()
 app.mount("/static", StaticFiles(directory=STATIC_PATH), name="static")
 app.mount("/uploads", StaticFiles(directory=UPLOADS_PATH), name="uploads")
 
-# ✅ Import routes
-from app.api import news
-from app.api import image_upload
-from app.api import category
-
-from app.api.routes import admin
-from app.api.routes import categories
-from app.api.routes.editions import router as edition_router
-
-from app.api.web import home
-from app.api.web import category as web_category
-from app.api.web import news_detail
-from app.api.web import news as web_news
-from app.api.web import search
-from app.api.web import contact
-from app.api.web.archive import router as archive_router
-from app.api.web import admin_dashboard
-from app.api.web import admin_auth
-from app.api.web import epaper as epaper_web
 
 # ✅ Include routers
 app.include_router(edition_router)

@@ -29,7 +29,9 @@ def create_article(
 ):
     # Generate unique filename and save image
     image_filename = f"{uuid.uuid4().hex}_{image.filename}"
-    image_path = os.path.join("src", "app", "static", "images", image_filename)
+    # old path
+    #image_path = os.path.join("src", "app", "static", "images", image_filename)
+    image_path = os.path.join("app", "static", "images", image_filename)
     os.makedirs(os.path.dirname(image_path), exist_ok=True)
 
     with open(image_path, "wb") as buffer:
