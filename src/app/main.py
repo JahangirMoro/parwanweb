@@ -41,7 +41,8 @@ app = FastAPI()
 
 # ✅ Mount folders
 app.mount("/static", StaticFiles(directory=STATIC_PATH), name="static")
-app.mount("/uploads", StaticFiles(directory=UPLOADS_PATH), name="uploads")
+#app.mount("/uploads", StaticFiles(directory=UPLOADS_PATH), name="uploads")
+app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 
 
 # ✅ Include routers
