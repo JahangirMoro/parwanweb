@@ -1,11 +1,22 @@
 {% extends "web_base.html" %}
+
+{% block title %}ڈیلی پروان - تازہ ترین خبریں، قومی و بین الاقوامی خبریں{% endblock %}
+{% block meta %}
+  <meta name="description" content="ڈیلی پروان سے حاصل کریں تازہ ترین خبریں، اردو میں قومی، بین الاقوامی، علاقائی اور دلچسپ خبریں۔">
+  <meta name="keywords" content="ڈیلی پروان, اردو خبریں, تازہ خبریں, پاکستان, بین الاقوامی, علاقائی, سیاست, کھیل, ٹیکنالوجی">
+  <meta property="og:title" content="ڈیلی پروان - تازہ ترین خبریں">
+  <meta property="og:description" content="تازہ ترین اردو خبریں اور اپ ڈیٹس ڈیلی پروان پر">
+  <meta property="og:image" content="{{ url_for('static', path='logo.png') }}">
+  <meta property="og:type" content="website">
+{% endblock %}
+
 {% block content %}
 
 <!-- ======= Hero Section ======= -->
 <div class="container mt-4">
   <div class="row">
 
-    <!-- Left: Main Article -->
+    <!-- Main Article -->
     <div class="col-md-8 mb-4">
       {% if latest_news %}
         <div class="card border-0 shadow-sm text-end">
@@ -18,7 +29,9 @@
             <p class="text-muted small mb-3">{{ latest_news[0].created_at.strftime('%d %B %Y') }}</p>
           </div>
           <a href="/news/{{ latest_news[0].id }}">
-            <img src="/{{ latest_news[0].image_url or 'static/default.jpg' }}" class="card-img-bottom w-100" style="height: 420px; object-fit: cover;">
+            <img src="{{ '/' + latest_news[0].image_url if latest_news[0].image_url else url_for('static', path='default.jpg') }}"
+                 class="card-img-bottom w-100"
+                 style="height: 420px; object-fit: cover;">
           </a>
           <div class="card-body text-end">
             <p class="text-end">{{ latest_news[0].summary[:200] }}{% if latest_news[0].summary|length > 200 %}...{% endif %}</p>
@@ -27,14 +40,15 @@
       {% endif %}
     </div>
 
-    <!-- Right: Ticker -->
+    <!-- Sidebar Ticker -->
     <div class="col-md-4">
       <h5 class="fw-bold border-bottom pb-2 text-end">تازہ خبریں</h5>
       <div class="ticker-box bg-light p-2 shadow-sm rounded" dir="rtl">
         <ul class="ticker-list list-unstyled mb-0" style="height: 260px; overflow: hidden;">
           {% for article in latest_news[1:6] %}
             <li class="d-flex flex-row-reverse align-items-start mb-3">
-              <img src="/{{ article.image_url or 'static/default.jpg' }}" class="ms-2 rounded shadow-sm" style="width: 90px; height: 65px; object-fit: cover;">
+              <img src="{{ '/' + article.image_url if article.image_url else url_for('static', path='default.jpg') }}"
+                   class="ms-2 rounded shadow-sm" style="width: 90px; height: 65px; object-fit: cover;">
               <div class="text-end">
                 <h6 class="mb-1" style="font-size: 14px;">
                   <a href="/news/{{ article.id }}" class="text-dark text-decoration-none">
@@ -57,7 +71,8 @@
   {% for article in latest_news[6:] %}
     <div class="card mb-4 border-0 shadow-sm text-end">
       <a href="/news/{{ article.id }}">
-        <img src="/{{ article.image_url or 'static/default.jpg' }}" class="card-img-top w-100" style="height: 380px; object-fit: cover;">
+        <img src="{{ '/' + article.image_url if article.image_url else url_for('static', path='default.jpg') }}"
+             class="card-img-top w-100" style="height: 380px; object-fit: cover;">
       </a>
       <div class="card-body text-end">
         <h5 class="fw-bold mb-2">
@@ -81,7 +96,8 @@
         <div class="col-md-3 col-sm-6">
           <div class="card h-100 border-0 shadow-sm text-end">
             <a href="/news/{{ article.id }}">
-              <img src="/{{ article.image_url or 'static/default.jpg' }}" class="card-img-top" style="height: 160px; object-fit: cover;">
+              <img src="{{ '/' + article.image_url if article.image_url else url_for('static', path='default.jpg') }}"
+                   class="card-img-top" style="height: 160px; object-fit: cover;">
             </a>
             <div class="card-body p-2">
               <h6 class="card-title mb-1 fw-bold truncate-2-lines" style="font-size: 14px;">
@@ -121,6 +137,7 @@
   </nav>
 </div>
 
+<!-- ======= Styles & Ticker Script ======= -->
 <style>
    .truncate-2-lines {
     display: -webkit-box;
@@ -135,7 +152,6 @@
 </style>
 
 
-<!-- ======= Ticker jQuery ======= -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   $(function () {
@@ -154,11 +170,3 @@
 </script>
 
 {% endblock %}
-
-
-
-
-
-
-
-
