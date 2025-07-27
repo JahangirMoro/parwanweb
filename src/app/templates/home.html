@@ -4,6 +4,7 @@
 <!-- ======= Hero Section ======= -->
 <div class="container mt-4">
   <div class="row">
+  
 
     <!-- Left: Main Article -->
     <div class="col-md-8 mb-4">
@@ -34,7 +35,7 @@
         <ul class="ticker-list list-unstyled mb-0" style="height: 260px; overflow: hidden;">
           {% for article in latest_news[1:6] %}
             <li class="d-flex flex-row-reverse align-items-start mb-3">
-              <img src="{{ article.image_url or '/static/default.jpg' }}" class="ms-2 rounded shadow-sm" style="width: 90px; height: 65px; object-fit: cover;">
+              <img src="{{ uploads/article.image_url or '/static/default.jpg' }}" class="ms-2 rounded shadow-sm" style="width: 90px; height: 65px; object-fit: cover;">
               <div class="text-end">
                 <h6 class="mb-1" style="font-size: 14px;">
                   <a href="/news/{{ article.id }}" class="text-dark text-decoration-none">
@@ -57,7 +58,7 @@
   {% for article in latest_news[6:] %}
     <div class="card mb-4 border-0 shadow-sm text-end">
       <a href="/news/{{ article.id }}">
-        <img src="{{ article.image_url or '/static/default.jpg' }}" class="card-img-top w-100" style="height: 380px; object-fit: cover;">
+        <img src="{{ uploads/article.image_url or '/static/default.jpg' }}" class="card-img-top w-100" style="height: 380px; object-fit: cover;">
       </a>
       <div class="card-body text-end">
         <h5 class="fw-bold mb-2">
@@ -81,7 +82,7 @@
         <div class="col-md-3 col-sm-6">
           <div class="card h-100 border-0 shadow-sm text-end">
             <a href="/news/{{ article.id }}">
-              <img src="{{ article.image_url or '/static/default.jpg' }}" class="card-img-top" style="height: 160px; object-fit: cover;">
+              <img src="{{ uploads/article.image_url or '/static/default.jpg' }}" class="card-img-top" style="height: 160px; object-fit: cover;">
             </a>
             <div class="card-body p-2">
               <h6 class="card-title mb-1 fw-bold truncate-2-lines" style="font-size: 14px;">
