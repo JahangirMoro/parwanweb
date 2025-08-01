@@ -35,6 +35,19 @@
           </a>
           <div class="card-body text-end">
             <p class="text-end">{{ latest_news[0].summary[:200] }}{% if latest_news[0].summary|length > 200 %}...{% endif %}</p>
+
+            <!-- ✅ Social Share Buttons -->
+            <div class="d-flex justify-content-end gap-3 mt-2">
+              <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url_root ~ 'news/' ~ latest_news[0].id }}" target="_blank" class="text-primary" title="Facebook پر شیئر کریں">
+                <i class="bi bi-facebook"></i>
+              </a>
+              <a href="https://twitter.com/intent/tweet?url={{ request.url_root ~ 'news/' ~ latest_news[0].id }}&text={{ latest_news[0].title }}" target="_blank" class="text-info" title="Twitter پر شیئر کریں">
+                <i class="bi bi-twitter-x"></i>
+              </a>
+              <a href="https://wa.me/?text={{ latest_news[0].title }} {{ request.url_root ~ 'news/' ~ latest_news[0].id }}" target="_blank" class="text-success" title="WhatsApp پر شیئر کریں">
+                <i class="bi bi-whatsapp"></i>
+              </a>
+            </div>
           </div>
         </div>
       {% endif %}
@@ -82,6 +95,19 @@
         </h5>
         <p class="text-muted small">{{ article.created_at.strftime('%d %B %Y') }}</p>
         <p class="small text-end">{{ article.summary }}</p>
+
+        <!-- ✅ Social Share Buttons -->
+        <div class="d-flex justify-content-end gap-3 mt-2">
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url_root ~ 'news/' ~ article.id }}" target="_blank" class="text-primary" title="Facebook پر شیئر کریں">
+            <i class="bi bi-facebook"></i>
+          </a>
+          <a href="https://twitter.com/intent/tweet?url={{ request.url_root ~ 'news/' ~ article.id }}&text={{ article.title }}" target="_blank" class="text-info" title="Twitter پر شیئر کریں">
+            <i class="bi bi-twitter-x"></i>
+          </a>
+          <a href="https://wa.me/?text={{ article.title }} {{ request.url_root ~ 'news/' ~ article.id }}" target="_blank" class="text-success" title="WhatsApp پر شیئر کریں">
+            <i class="bi bi-whatsapp"></i>
+          </a>
+        </div>
       </div>
     </div>
   {% endfor %}
@@ -106,6 +132,19 @@
                 </a>
               </h6>
               <small class="text-muted">{{ article.created_at.strftime('%d %B %Y') }}</small>
+
+              <!-- ✅ Social Share Buttons -->
+              <div class="d-flex justify-content-end gap-2 mt-2">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.url_root ~ 'news/' ~ article.id }}" target="_blank" class="text-primary" title="Facebook پر شیئر کریں">
+                  <i class="bi bi-facebook"></i>
+                </a>
+                <a href="https://twitter.com/intent/tweet?url={{ request.url_root ~ 'news/' ~ article.id }}&text={{ article.title }}" target="_blank" class="text-info" title="Twitter پر شیئر کریں">
+                  <i class="bi bi-twitter-x"></i>
+                </a>
+                <a href="https://wa.me/?text={{ article.title }} {{ request.url_root ~ 'news/' ~ article.id }}" target="_blank" class="text-success" title="WhatsApp پر شیئر کریں">
+                  <i class="bi bi-whatsapp"></i>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -136,6 +175,10 @@
     </ul>
   </nav>
 </div>
+
+<!-- ======= Styles & Ticker Script ======= -->
+
+
 
 <!-- ======= Styles & Ticker Script ======= -->
 <style>
@@ -170,3 +213,26 @@
 </script>
 
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+<!-- ======= Styles & Ticker Script ======= -->
+<style>
+   .truncate-2-lines {
+    display: -webkit-box;
+    display: box; /* Older standard syntax */
+    -webkit-line-clamp: 2;
+    line-clamp: 2; /* NEW: Standard property */
+    -webkit-box-orient: vertical;
+    box-orient: vertical; /* Older standard syntax */
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+</style>
